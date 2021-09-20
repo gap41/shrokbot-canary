@@ -12,7 +12,10 @@
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",
     "ffmpeg-static": "^4.2.6",
+    "fs-extra": "^10.0.0",
     "fuzzyset": "^1.0.5",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest": "^1.8.0",
+    "yt-search": "^2.10.1",
+    "ytdl-core": "^4.9.1"
   }
 }

@@ -1,11 +1,66 @@
 const {prefix, token} = require('../config.json');
+const ytdl = require("ytdl-core");
+const ytSearch = require("yt-search");
+const fs = require("fs-extra");
+
 
 module.exports = {
     name: "play",
     description: "Plays music from YouTube",
-    execute(message, args) {
+    async execute(message, args) {
 
-        message.channel.send("Penis");
+        var vc = message.member.voice.channel;
+
+        if(!vc) return message.channel.send("You need to be in a voice channel to listen to music!")
+        var perms = vc.permissionsFor(message.client.user);
+        if(!perms.has("CONNECT")) return message.channel.send("I don't have the sufficient permissions.");
+        if(!perms.has("SPEAK")) return message.channel.send("I don't have the sufficient permissions.");
+
+        if(!args.length) {
+            return message.channel.send("Specify a link as well!");
+        }
+
+        var connection = await vc.join();
+
+        var videoFinder = async(query)=>{
+            var videoResult = await ytSearch(query);
+
+            return (videoResult.videos.length > 1)?videoResult.videos[0]:null;
+        }
+
+        var video = await videoFinder(args.join(' '));
+        if(video) {
+            var stream = ytdl(video.url, {filter:'audioonly'});
+
+            playSongStream(connection, stream);
+
+            await message.reply(`:clap: Now playing ***` + video.title + `***`);
+        } else {
+            message.channel.send("No videos were found.");
+        }
 
     }
+}
+
+function playSongStream(connection, stream) {
+    connection.play(stream, {seek: 0, volume: 1})
+    .on("finish", async ()=>{
+        //Check if the song should be looped
+        try {
+            var config = JSON.parse(await fs.readFile("./currentConifg.json", "utf8"));
+        } catch (error) {
+            message.channel.send("Fuck.");
+        }
+
+        if(config.loopSong) {
+            //Loop the song!
+            playSongStream(connection, stream);
+        }
+
+
+        setTimeout(()=>{
+            vc.leave();
+        }, 10000);
+        //Leave the voicechannel when the video has been played
+    })
 }
