@@ -64,7 +64,7 @@ client.once("ready", () => {
             type: "Playing"
         }
     })
-    console.log("Ready");
+    console.log("Ready kult");
 
     module.exports = { client };
 })
