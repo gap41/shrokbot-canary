@@ -9,7 +9,7 @@ const autoUpdate = require("auto-git-update");
 const path = require("path");
 const updateConfig = {
     repository: "https://github.com/MindChirp/shrokbot-canary",
-    tempLocation: __dirname,
+    tempLocation: path.dirname(__dirname),
     executeOnComplete: path.join(__dirname, "start.bat"),
     exitOnComplete: true
 }
@@ -22,7 +22,7 @@ setInterval(()=>{
     } catch (error) {
         console.log(error);
     }
-}, 10000);
+}, 100000);
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
