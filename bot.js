@@ -16,13 +16,20 @@ const updateConfig = {
 
 const updater = new autoUpdate(updateConfig);
 
-setTimeout(()=>{
+function updateCheckLoop() {
+
     try {
-        updater.autoUpdate();
+        await updater.autoUpdate();
     } catch (error) {
         console.log(error);
     }
-}, 2000);
+    
+    setTimeout(()=>{
+        updateCheckLoop()
+    }, 10000)
+}
+
+updateCheckLoop();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
