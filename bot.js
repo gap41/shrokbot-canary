@@ -10,7 +10,7 @@ const path = require("path");
 const updateConfig = {
     repository: "https://github.com/MindChirp/shrokbot-canary",
     tempLocation: path.dirname(__dirname),
-    executeOnComplete: path.join(__dirname, "start.bat"),
+    executeOnComplete: path.join(__dirname, "restart.bat"),
     exitOnComplete: true
 }
 
@@ -22,7 +22,7 @@ setInterval(()=>{
     } catch (error) {
         console.log(error);
     }
-}, 100000);
+}, 1000);
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
