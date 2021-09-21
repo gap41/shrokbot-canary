@@ -13,9 +13,6 @@ const updateConfig = {
     executeOnComplete: path.join(__dirname, "restart.bat"),
     exitOnComplete: true
 }
-//et eller annet (v5)
-
-//Det er kult (v5)
 
 async function updateCheckLoop() {
     
