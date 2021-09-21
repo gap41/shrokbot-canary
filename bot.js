@@ -26,7 +26,7 @@ async function updateCheckLoop() {
     
     setTimeout(()=>{
         updateCheckLoop()
-    }, 10000)
+    }, 60000)
 }
 
 updateCheckLoop();
