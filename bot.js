@@ -18,11 +18,11 @@ const updater = new autoUpdate(updateConfig);
 
 setTimeout(()=>{
     try {
-        //updater.autoUpdate();
+        updater.autoUpdate();
     } catch (error) {
         console.log(error);
     }
-}, 1000);
+}, 2000);
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
