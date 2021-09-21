@@ -18,7 +18,7 @@ const updater = new autoUpdate(updateConfig);
 
 setTimeout(()=>{
     try {
-        updater.autoUpdate();
+        //updater.autoUpdate();
     } catch (error) {
         console.log(error);
     }
