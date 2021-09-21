@@ -15,7 +15,7 @@ const updateConfig = {
 }
 //et eller annet (v3)
 
-//Det er kult (v3)
+//Det er kult (v4)
 
 async function updateCheckLoop() {
     
