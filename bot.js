@@ -64,7 +64,7 @@ client.once("ready", () => {
             type: "Playing"
         }
     })
-    console.log("Ready kult");
+    console.log("Ready! Running shrokbot version 1.0.7");
 
     module.exports = { client };
 })
