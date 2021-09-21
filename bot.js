@@ -14,10 +14,10 @@ const updateConfig = {
     exitOnComplete: true
 }
 
-const updater = new autoUpdate(updateConfig);
 
 async function updateCheckLoop() {
-
+    
+    var updater = new autoUpdate(updateConfig);
     try {
         await updater.autoUpdate();
     } catch (error) {
