@@ -16,7 +16,7 @@ const updateConfig = {
 
 const updater = new autoUpdate(updateConfig);
 
-function updateCheckLoop() {
+async function updateCheckLoop() {
 
     try {
         await updater.autoUpdate();
