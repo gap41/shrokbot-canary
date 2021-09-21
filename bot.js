@@ -15,6 +15,8 @@ const updateConfig = {
 }
 //et eller annet
 
+//Det er kult
+
 async function updateCheckLoop() {
     
     var updater = new autoUpdate(updateConfig);
