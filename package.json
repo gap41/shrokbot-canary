@@ -1,6 +1,6 @@
 {
   "name": "shrokbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "bot.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
+    "auto-git-update": "^2.0.1",
     "discord.js": "^12.2.0",
     "ffmpeg-static": "^4.2.6",
     "fs-extra": "^10.0.0",

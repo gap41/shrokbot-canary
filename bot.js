@@ -5,6 +5,24 @@ const { get } = require("http");
 const { start } = require("repl");
 const {prefix, token} = require('./config.json');
 client.commands = new Discord.Collection();
+const autoUpdate = require("auto-git-update");
+const path = require("path");
+const updateConfig = {
+    repository: "https://github.com/MindChirp/shrokbot-canary",
+    tempLocation: __dirname,
+    executeOnComplete: path.join(__dirname, "start.bat"),
+    exitOnComplete: true
+}
+
+const updater = new autoUpdate(updateConfig);
+
+setInterval(()=>{
+    try {
+        updater.autoUpdate();
+    } catch (error) {
+        console.log(error);
+    }
+}, 10000);
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
