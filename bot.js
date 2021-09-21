@@ -13,7 +13,7 @@ const updateConfig = {
     executeOnComplete: path.join(__dirname, "restart.bat"),
     exitOnComplete: true
 }
-//et eller annet
+//et eller annet (v2)
 
 async function updateCheckLoop() {
     
