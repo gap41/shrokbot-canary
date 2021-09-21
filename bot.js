@@ -54,7 +54,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-
+const appVersion = require("./package.json");
 
 client.once("ready", () => {
     client.user.setPresence({
@@ -63,7 +63,7 @@ client.once("ready", () => {
             type: "Playing"
         }
     })
-    console.log("Ready! Running shrokbot version 1.0.7");
+    console.log("Ready! Running shrokbot version " + appVersion.version);
 
     module.exports = { client };
 })
