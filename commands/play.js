@@ -30,11 +30,33 @@ module.exports = {
 
         var video = await videoFinder(args.join(' '));
         if(video) {
-            var stream = ytdl(video.url, {filter:'audioonly'});
+            
+            function playAudio() {
+                var stream = ytdl(video.url, {filter:'audioonly'});
+                connection.play(stream, {seek: 0, volume: 1})
+                .on("finish", async ()=>{
+                    //Check if the song should be looped
+                    try {
+                        var config = JSON.parse(await fs.readFile("./currentConfig.json", "utf8"));
+                    } catch (error) {
+                        message.channel.send("Fuck.");
+                    }
+    
+                    if(config.loopSong) {
+                        playAudio();
+                    } else {
+                        //Leave the voicechannel when the video has been played
+                        setTimeout(()=>{
+                            vc.leave();
+                        }, 10000);
+                    }
+                })
+            }
 
-            playSongStream(connection, stream);
+            playAudio();
 
-            await message.reply(`:clap: Now playing ***` + video.title + `***`);
+
+            await message.channel.send(`:clap: Now playing ***` + video.title + `***`);
         } else {
             message.channel.send("No videos were found.");
         }
@@ -42,25 +64,6 @@ module.exports = {
     }
 }
 
-function playSongStream(connection, stream) {
-    connection.play(stream, {seek: 0, volume: 1})
-    .on("finish", async ()=>{
-        //Check if the song should be looped
-        try {
-            var config = JSON.parse(await fs.readFile("./currentConifg.json", "utf8"));
-        } catch (error) {
-            message.channel.send("Fuck.");
-        }
-
-        if(config.loopSong) {
-            //Loop the song!
-            playSongStream(connection, stream);
-        }
-
-
-        setTimeout(()=>{
-            vc.leave();
-        }, 10000);
-        //Leave the voicechannel when the video has been played
-    })
+function playSongStream() {
+    
 }

@@ -1,4 +1,5 @@
 const {prefix, token} = require('../config.json');
+const { Permissions } = require("discord.js");
 const fs = require("fs-extra");
 module.exports = {
     name: "loop",
@@ -11,11 +12,31 @@ module.exports = {
             return message.channel.send("Fuck. That went horribly wrong.");
         }
 
-        config.loopSong = true;
+        if(message.member.guild.me.hasPermission('ADMINISTRATOR')) {
+            //The user is administrator!
+            if(config.loopSong) {
+                config.loopSong = false;
+            } else {
+                config.loopSong = true;
+            }
+        } else {
+            if(config.loopSong == true) {
+                //Do NOT disable looping, since the user does not have sufficient permissions
+                return message.channel.send("Sorry! I can't turn off looping. You're not an administrator.")
+            } else {
+                config.loopSong = true;
+            }
+        }
+        
+
         
         fs.writeFile("./currentConfig.json", JSON.stringify(config, null, 4))
         .then(()=>{
-            message.channel.send("Looping the current song!");
+            if(config.loopSong) {
+                message.channel.send("Looping the current song!");
+            } else {
+                message.channel.send("I will not loop the song anymore.");
+            }
         })
         .catch((err)=>{
             message.channel.send(err);
