@@ -13,7 +13,7 @@ const updateConfig = {
     executeOnComplete: path.join(__dirname, "restart.bat"),
     exitOnComplete: true
 }
-//et eller annet (v4)
+//et eller annet (v5)
 
 //Det er kult (v4)
 
