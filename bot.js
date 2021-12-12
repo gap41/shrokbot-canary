@@ -14,15 +14,21 @@ const updateConfig = {
     exitOnComplete: true
 }
 
-const updater = new autoUpdate(updateConfig);
-
-setTimeout(()=>{
+async function updateCheckLoop() {
+    
+    var updater = new autoUpdate(updateConfig);
     try {
-        updater.autoUpdate();
+        await updater.autoUpdate();
     } catch (error) {
         console.log(error);
     }
-}, 1000);
+    
+    setTimeout(()=>{
+        updateCheckLoop()
+    }, 60000)
+}
+
+updateCheckLoop();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -48,7 +54,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-
+const appVersion = require("./package.json");
 
 client.once("ready", () => {
     client.user.setPresence({
@@ -57,7 +63,7 @@ client.once("ready", () => {
             type: "Playing"
         }
     })
-    console.log("Ready");
+    console.log("Ready! Running shrokbot version " + appVersion.version);
 
     module.exports = { client };
 })
@@ -84,21 +90,21 @@ setInterval(()=>{
 	if(countdown == 5 || countdown == 10 || countdown == 15 || countdown == 20 ){
 
 			if(hours < 10 && minutes < 10 && seconds < 10){
-				//console.log(days + " 0" + hours + ":" + "0" + minutes + ":" + "0" + seconds);
+				console.log(days + " 0" + hours + ":" + "0" + minutes + ":" + "0" + seconds);
 			}else if(hours < 10 && minutes < 10){
-				//console.log(days + " 0" + hours + ":" + "0" + minutes + ":" +seconds);
+				console.log(days + " 0" + hours + ":" + "0" + minutes + ":" +seconds);
 			}else if(hours < 10 && seconds < 10){
-				//console.log(days + " 0" + hours + ":" + minutes + ":" + "0" + seconds);
+				console.log(days + " 0" + hours + ":" + minutes + ":" + "0" + seconds);
 			}else if(minutes < 10 && seconds < 10){
-				//console.log(days, hours + ":" + "0" + minutes + ":" + "0" + seconds);
+				console.log(days, hours + ":" + "0" + minutes + ":" + "0" + seconds);
 			}else if(hours < 10){
-				//console.log(days + " 0" + hours + ":" + minutes + ":" + seconds);
+				console.log(days + " 0" + hours + ":" + minutes + ":" + seconds);
 			}else if(minutes < 10){
-				//console.log(days + " " + hours + ":" + "0" + minutes + ":" + seconds);
+				console.log(days + " " + hours + ":" + "0" + minutes + ":" + seconds);
 			}else if(seconds < 10){
-				//console.log(days + " " + hours + ":" + minutes + ":" + "0" + seconds);
+				console.log(days + " " + hours + ":" + minutes + ":" + "0" + seconds);
 			}else{
-				//console.log(days + " " + hours + ":" + minutes + ":" + seconds);
+				console.log(days + " " + hours + ":" + minutes + ":" + seconds);
 			}
 	}
 
@@ -110,15 +116,15 @@ setInterval(()=>{
         randomMinute = Math.floor((Math.random() * 59));
 		startRandomTime = 1;
 		if(randomRickHour == 1){
-			//console.log("The random rick hour has passed, it was : " + randomHour + ":" + randomMinute);
+			console.log("The random rick hour has passed, it was : " + randomHour + ":" + randomMinute);
 		}else if(randomHour < 10 && randomMinute < 10){
-			//console.log("New random rickroll assigned : " + "0" + randomHour + ":" + "0" + randomMinute);
+			console.log("New random rickroll assigned : " + "0" + randomHour + ":" + "0" + randomMinute);
 		}else if(randomHour < 10){
-			//console.log("New random rickroll assigned : " + "0" + randomHour + ":" + randomMinute);
+			console.log("New random rickroll assigned : " + "0" + randomHour + ":" + randomMinute);
 		}else if(randomMinute < 10){
-			//console.log("New random rickroll assigned : " + randomHour + ":" + "0" + randomMinute);
+			console.log("New random rickroll assigned : " + randomHour + ":" + "0" + randomMinute);
 		}else{
-			//console.log("New random rickroll assigned : " + randomHour + ":" + randomMinute);
+			console.log("New random rickroll assigned : " + randomHour + ":" + randomMinute);
 		}
     } else if (hours == 0 && minutes == 0 && seconds == 00) {
 		startRandomTime = 0;
@@ -128,15 +134,15 @@ setInterval(()=>{
 
     if (countdown == 20){
 		if(randomRickHour == 1){
-			//console.log("The random rick hour has passed, it was : " + randomHour + ":" + randomMinute);
+			console.log("The random rick hour has passed, it was : " + randomHour + ":" + randomMinute);
 		}else if(randomHour < 10 && randomMinute < 10){
-				//console.log("The random rickroll is going to be executed at this timestamp: " + "0" + randomHour + ":" + "0" + randomMinute);
+			    console.log("The random rickroll is going to be executed at this timestamp: " + "0" + randomHour + ":" + "0" + randomMinute);
 			}else if(randomHour < 10){
-				//console.log("The random rickroll is going to be executed at this timestamp: " + "0" + randomHour + ":" + randomMinute);
+				console.log("The random rickroll is going to be executed at this timestamp: " + "0" + randomHour + ":" + randomMinute);
 			}else if(randomMinute < 10){
-				//console.log("The random rickroll is going to be executed at this timestamp: " + randomHour + ":" + "0" + randomMinute);
+				console.log("The random rickroll is going to be executed at this timestamp: " + randomHour + ":" + "0" + randomMinute);
 			}else{
-				//console.log("The random rickroll is going to be executed at this timestamp: " + randomHour + ":" + randomMinute);
+				console.log("The random rickroll is going to be executed at this timestamp: " + randomHour + ":" + randomMinute);
 			}
 		countdown = 0;
     }else{
